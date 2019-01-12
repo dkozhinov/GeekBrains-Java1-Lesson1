@@ -2,6 +2,8 @@ package ru.geekbrains.java1;
 
 public class Lesson1 {
 
+    // Урок 1 курса Java Уровень 1
+
     public static void main(String[] args) {
         System.out.println("mymethod3=" + mymethod3(1,2,3,4));
         System.out.println("mymethod4=" + mymethod4(1,10));
