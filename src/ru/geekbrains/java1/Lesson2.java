@@ -34,14 +34,18 @@ public class Lesson2 {
         System.out.println(Arrays.toString(myArrayAsParameter4)+ " is original array");
         int n=1;
         System.out.println(Arrays.toString(doMethod7(myArrayAsParameter4,n))+ " shift by n=" + n);
-        n=-1;
+        n=-2;
         System.out.println(Arrays.toString(doMethod7(myArrayAsParameter4,n))+ " shift by n=" + n);
         n=2;
         System.out.println(Arrays.toString(doMethod7(myArrayAsParameter4,n))+ " shift by n=" + n);
         n=7;
         System.out.println(Arrays.toString(doMethod7(myArrayAsParameter4,n))+ " shift by n=" + n);
 
- 
+        System.out.println("\ndoMethod7S");
+        System.out.println(Arrays.toString(myArrayAsParameter4)+ " is original array");
+        n=-2;
+        System.out.println(Arrays.toString(doMethod7S(myArrayAsParameter4,n))+ " shift by n=" + n);
+
     }
 
 
@@ -166,6 +170,30 @@ public class Lesson2 {
         }
 
         return myArrayTemp;
+    }
+
+
+    // 7S **** Написать метод, которому на вход подаётся одномерный массив и число n (может быть
+    // положительным, или отрицательным), при этом метод должен сместить все элементы
+    // массива на n позиций.
+    // Для усложнения задачи нельзя пользоваться вспомогательными массивами.
+    private static int[] doMethod7S (int[] myArray, int n) {
+        int myArrayLength = myArray.length;
+        int myShiftArray= n % myArrayLength;
+        int prev, temp;
+
+        if (myShiftArray < 0)  myShiftArray += myArrayLength;
+
+        prev = myArray[0];
+         for (int i=0, j=myShiftArray; i < myArrayLength; i++) {
+            temp = myArray[j];
+            myArray[j] = prev;
+            j += myShiftArray;
+            if (j >= myArrayLength)  j-=myArrayLength;
+            prev = temp;
+         }
+
+        return myArray;
     }
 
 
