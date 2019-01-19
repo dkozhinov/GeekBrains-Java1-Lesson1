@@ -13,19 +13,19 @@ public class Lesson2 {
         doMethod1();
         doMethod2();
         doMethod3();
-        doMethod4();
+        doMethod4(6);
         doMethod5();
 
         System.out.println("\ndoMethod6");
         int[] myArrayAsParameter1 = {1, 1, 1, 2, 1};
-        System.out.println(Arrays.toString(myArrayAsParameter1));
-        System.out.println("Balance is " + doMethod6(myArrayAsParameter1));
+        System.out.print(Arrays.toString(myArrayAsParameter1));
+        System.out.println(" balance is " + doMethod6(myArrayAsParameter1));
         int[] myArrayAsParameter2 = {2, 1, 1, 2, 1};
-        System.out.println(Arrays.toString(myArrayAsParameter2));
-        System.out.println("Balance is " + doMethod6(myArrayAsParameter2));
+        System.out.print(Arrays.toString(myArrayAsParameter2));
+        System.out.println(" balance is " + doMethod6(myArrayAsParameter2));
         int[] myArrayAsParameter3 = {10, 10};
-        System.out.println(Arrays.toString(myArrayAsParameter3));
-        System.out.println("Balance is " + doMethod6(myArrayAsParameter3));
+        System.out.print(Arrays.toString(myArrayAsParameter3));
+        System.out.println(" balance is " + doMethod6(myArrayAsParameter3));
 
 
         System.out.println("\ndoMethod7");
@@ -58,12 +58,9 @@ public class Lesson2 {
         System.out.println(Arrays.toString(myArray));
 
         for (int i=0; i < myArray.length; i++) {
-            if (myArray[i] == 0) {
-                myArray[i] = 1;
-            } else if (myArray[i] == 1) {
-                myArray[i] = 0;
-            }
+            myArray[i] = 1 - myArray[i];
         }
+
         System.out.println(Arrays.toString(myArray));
     }
 
@@ -74,7 +71,9 @@ public class Lesson2 {
         int[] myArray = new int[8];
         System.out.println("\ndoMethod2");
 
-        for (int i=0; i< myArray.length; i++)  myArray[i]=i*3;
+        for (int i=0; i< myArray.length; i++) {
+            myArray[i]=i*3;
+        }
 
         System.out.println(Arrays.toString(myArray));
     }
@@ -87,25 +86,30 @@ public class Lesson2 {
         System.out.println("\ndoMethod3");
         System.out.println(Arrays.toString(myArray));
 
-        for (int i=0; i < myArray.length; i++) if (myArray[i] < 6) myArray[i] *= 2;
+        for (int i=0; i < myArray.length; i++) {
+            if (myArray[i] < 6) {
+                myArray[i] *= 2;
+            }
+        }
 
         System.out.println(Arrays.toString(myArray));
     }
 
     // 4 Создать квадратный двумерный целочисленный массив (количество строк и столбцов
     // одинаковое), и с помощью цикла(-ов) заполнить его диагональные элементы единицами;
-    private static void doMethod4(){
-        final int SIZE_ARRAY=5;
-        int[][] myArray = new int[SIZE_ARRAY][SIZE_ARRAY];
+    private static void doMethod4(int size){
+        int[][] myArray = new int[size][size];
         System.out.println("\ndoMethod4");
 
-        for (int i=0; i< SIZE_ARRAY; i++) {
-            for (int j=0; j< SIZE_ARRAY; j++) {
-                if ( i==j ) myArray[i][j]= 1;
-            }
+        for (int i=0; i< size; i++) {
+            myArray[i][i]= 1;
+            myArray[i][size-1-i]= 1;
         }
 
-        System.out.println(Arrays.deepToString(myArray));
+        for (int i=0; i< size; i++) {
+            System.out.println(Arrays.toString(myArray[i]));
+        }
+
     }
 
     // 5 ** Задать одномерный массив и найти в нем минимальный и максимальный элементы (без
@@ -120,8 +124,12 @@ public class Lesson2 {
         minElement = myArray[0];
         maxElement = myArray[0];
         for (int i=0; i < myArray.length; i++) {
-            if (myArray[i] < minElement) minElement = myArray[i];
-            if (myArray[i] > maxElement) maxElement = myArray[i];
+            if (myArray[i] < minElement) {
+                minElement = myArray[i];
+            }
+            if (myArray[i] > maxElement) {
+                maxElement = myArray[i];
+            }
         }
         System.out.println("Min element is " + minElement);
         System.out.println("Max element is " + maxElement);
@@ -138,14 +146,17 @@ public class Lesson2 {
 
         myLeftPartArray  = 0;
         for (int i=0; i < myArray.length; i++) {
+
             myLeftPartArray += myArray[i];
             myRightPartArray = 0;
             for (int j=myArray.length-1; j>i; j--) {
                 myRightPartArray += myArray[j];
             }
+
             if (myLeftPartArray == myRightPartArray) {
                 return true;
             }
+
         }
         return false;
     }
@@ -162,9 +173,10 @@ public class Lesson2 {
 
         if (myShiftArray < 0)  myShiftArray += myArrayLength;
 
-
         for (int i=0, j = myShiftArray; i < myArrayLength; i++, j++) {
-            if (j >= myArrayLength)  j=0;
+            if (j >= myArrayLength) {
+                j=0;
+            }
             myArrayTemp[j] = myArray[i];
         }
 
@@ -184,13 +196,19 @@ public class Lesson2 {
         if (myShiftArray < 0)  myShiftArray += myArrayLength;
 
         prev = myArray[0];
-         for (int i=0, j=myShiftArray; i < myArrayLength; i++) {
+        for (int i=0, j=myShiftArray; i < myArrayLength; i++) {
+
             temp = myArray[j];
             myArray[j] = prev;
             j += myShiftArray;
-            if (j >= myArrayLength)  j-=myArrayLength;
+
+            if (j >= myArrayLength) {
+                j-=myArrayLength;
+            }
+
             prev = temp;
-         }
+
+        }
 
         return myArray;
     }
