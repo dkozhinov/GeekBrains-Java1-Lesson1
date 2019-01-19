@@ -4,8 +4,6 @@
  * @version dated Jan 15, 2019
  */
 
-package ru.geekbrains.java1;
-
 public class Lesson1 {
 
     // Урок 1 курса Java Уровень 1
