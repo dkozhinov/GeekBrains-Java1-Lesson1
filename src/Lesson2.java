@@ -4,7 +4,6 @@
  * @version dated Jan 17, 2019
  */
 
-package ru.geekbrains.java1;
 import java.util.Arrays;
 
 public class Lesson2 {
