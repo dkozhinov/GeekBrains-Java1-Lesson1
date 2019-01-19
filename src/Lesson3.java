@@ -22,27 +22,35 @@ public class Lesson3 {
         Scanner scanner = new Scanner(System.in);
         int x = random.nextInt(10);
         boolean myReazult = false;
-
+        int y;
         System.out.println("\nУгадайте загаданное число от 0 до 9. Вам дается " + count + " попытки.");
 
         for (int i=1; i<=count; i++) {
             System.out.println("Введите число: ");
-            if ( x == scanner.nextInt()) {
+            y = scanner.nextInt();
+
+            if ( x == y) {
                 myReazult = true;
                 break;
             }
             else {
+                if (x > y) {
+                    System.out.print("Загаданное число больше Вашего! ");
+                }
+                else {
+                    System.out.print("Загаданное число меньше Вашего! ");
+                }
                 if (i != count) {
-                    System.out.println("Попробуй еще раз. Осталось попыток= " + (count - i));
+                     System.out.println("Попробуй еще раз. Осталось попыток= " + (count - i));
                 }
             }
         }
 
         if (myReazult) {
-            System.out.println("Поздравляю, Вы угадали!");
+            System.out.println("Поздравляю, Вы угадали - это число " + x + "!");
         }
         else {
-            System.out.println("К сожалению, Вы не угадали!");
+            System.out.println("К сожалению, Вы не угадали - это число " + x + "!");
         }
 
     }
