@@ -84,9 +84,11 @@ public class Lesson3 {
         Scanner scanner = new Scanner(System.in);
 
         String userInputString, word;
-        int index, userInputStringLength, wordLength, counter;
+        int userInputStringLength, wordLength;
+        int index, counter;
         boolean flagMatchWords = false;
 
+        // Выберем слово из массива случайным образом
         index = random.nextInt(25);
         word =words[index];
         wordLength = word.length();
@@ -96,11 +98,12 @@ public class Lesson3 {
             userInputString = scanner.nextLine();
             userInputStringLength= userInputString.length();
 
-            // Инициализация масива символов
+            // Инициализация масива символов (я по-другому пока не знаю)
             for (int i=0; i<15; i++) {
                 userOutputString[i] = '#';
             }
 
+            // Сравниваем посимвольно слова: введенное пользователем и выбранное случайным образом
             counter=0;
             for (int i=0; i < userInputStringLength; i++) {
                 if (word.charAt(i) == userInputString.charAt(i)) {
@@ -112,10 +115,10 @@ public class Lesson3 {
                 }
             }
 
+            // Проверяем результат сравнения
             if (counter == wordLength) {
                 flagMatchWords = true;
-                System.out.println("Вы угадали слово " + word + ". Поздравляем!");
-                break;
+                System.out.println("Вы угадали слово - это " + word + ". Поздравляем!");
             }
             else {
                 System.out.println(userOutputString);
