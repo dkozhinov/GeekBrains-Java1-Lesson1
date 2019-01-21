@@ -78,47 +78,51 @@ public class Lesson3 {
                           "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut",
                           "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
 
+        char[] userOutputString = new char[15];
+
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
 
         String userInputString, word;
-        char[] userCheckString = new char[15];
-        int index, userInputStringLength, counter;
+        int index, userInputStringLength, wordLength, counter;
         boolean flagMatchWords = false;
 
         index = random.nextInt(25);
         word =words[index];
+        wordLength = word.length();
 
         do {
-            System.out.println("Введите слово:" + word);
+            System.out.println("Введите слово:");
             userInputString = scanner.nextLine();
             userInputStringLength= userInputString.length();
+
+            // Инициализация масива символов
             for (int i=0; i<15; i++) {
-                userCheckString[i] = '#';
+                userOutputString[i] = '#';
             }
 
             counter=0;
             for (int i=0; i < userInputStringLength; i++) {
                 if (word.charAt(i) == userInputString.charAt(i)) {
-                    userCheckString[i]=word.charAt(i);
-                    ++counter;
+                    userOutputString[i]=word.charAt(i);
+                    counter++;
                 }
                 else {
                     break;
                 }
             }
 
-            if (counter == userInputStringLength-1) {
+            if (counter == wordLength) {
                 flagMatchWords = true;
                 System.out.println("Вы угадали слово " + word + ". Поздравляем!");
                 break;
             }
             else {
-                System.out.println(userCheckString);
+                System.out.println(userOutputString);
             }
 
 
-        } while ( flagMatchWords );
+        } while ( !flagMatchWords );
     }
 
 }
