@@ -10,7 +10,8 @@ import java.util.Random;
 public class Lesson3 {
 
     public static void main (String[] args) {
-        doMethod1(3);
+        //doMethod1(3);
+        doMethod2();
     }
 
 
@@ -73,7 +74,51 @@ public class Lesson3 {
     // Играем до тех пор, пока игрок не отгадает слово
     // Используем только маленькие буквы
     static void doMethod2() {
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot",
+                          "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut",
+                          "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
 
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+
+        String userInputString, word;
+        char[] userCheckString = new char[15];
+        int index, userInputStringLength, counter;
+        boolean flagMatchWords = false;
+
+        index = random.nextInt(25);
+        word =words[index];
+
+        do {
+            System.out.println("Введите слово:" + word);
+            userInputString = scanner.nextLine();
+            userInputStringLength= userInputString.length();
+            for (int i=0; i<15; i++) {
+                userCheckString[i] = '#';
+            }
+
+            counter=0;
+            for (int i=0; i < userInputStringLength; i++) {
+                if (word.charAt(i) == userInputString.charAt(i)) {
+                    userCheckString[i]=word.charAt(i);
+                    ++counter;
+                }
+                else {
+                    break;
+                }
+            }
+
+            if (counter == userInputStringLength-1) {
+                flagMatchWords = true;
+                System.out.println("Вы угадали слово " + word + ". Поздравляем!");
+                break;
+            }
+            else {
+                System.out.println(userCheckString);
+            }
+
+
+        } while ( flagMatchWords );
     }
 
 }
