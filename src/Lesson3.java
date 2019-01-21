@@ -10,7 +10,7 @@ import java.util.Random;
 public class Lesson3 {
 
     public static void main (String[] args) {
-        //doMethod1(3);
+        doMethod1(3);
         doMethod2();
     }
 
