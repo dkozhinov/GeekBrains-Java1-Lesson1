@@ -15,7 +15,7 @@ public class Lesson4 {
     final char DOT_O = 'o';
     final char DOT_EMPTY = '.';
     char[][] map;
-    int winX, winY;               // Для нахождения потенциальн выйгрышного хода
+    int winX, winY;               // Для нахождения потенциально выйгрышного хода
     Random random;
     Scanner scanner;
 
@@ -113,16 +113,39 @@ public class Lesson4 {
         int checkHorizontalCounter, checkVerticalCounter;
         int checkMainDiagonalCounter, checkSideDiagonalCounter;
 
-        checkMainDiagonalCounter   = 0;
-        checkSideDiagonalCounter   = 0;
+        // Для диагоналей, которые ниже основной и побочной диагоналей
+        int checkBelowMainDiagonalCounter, checkBelowSideDiagonalCounter;
+
         for (int i = 0; i < SIZE; i++) {
-            if (map[i][i] == dt)         { checkMainDiagonalCounter++; }
-            if (map[SIZE-i-1][i] == dt)  { checkSideDiagonalCounter++; }
-            if (checkMainDiagonalCounter == sizeLineWin || checkSideDiagonalCounter == sizeLineWin) return true;
 
             checkHorizontalCounter = 0;
             checkVerticalCounter   = 0;
+            checkMainDiagonalCounter   = 0;
+            checkSideDiagonalCounter   = 0;
+            checkBelowMainDiagonalCounter   = 0;
+            checkBelowSideDiagonalCounter   = 0;
             for (int j = 0; j < SIZE; j++) {
+
+                if (j+i < SIZE) {
+                    if (map[j][j+i] == dt)         { checkMainDiagonalCounter++; }
+                    if (map[SIZE-j-1][j+i] == dt)  { checkSideDiagonalCounter++; }
+                    if (checkMainDiagonalCounter == sizeLineWin || checkSideDiagonalCounter == sizeLineWin) return true;
+                }
+                else {
+                    checkMainDiagonalCounter   = 0;
+                    checkSideDiagonalCounter   = 0;
+                }
+
+                if (j-i >=0) {
+                    if (map[j][j-i] == dt)         { checkBelowMainDiagonalCounter++; }
+                    if (map[SIZE-j-1][j-i] == dt)  { checkBelowSideDiagonalCounter++; }
+                    if (checkBelowMainDiagonalCounter == sizeLineWin || checkBelowSideDiagonalCounter == sizeLineWin) return true;
+                }
+                else {
+                    checkBelowMainDiagonalCounter   = 0;
+                    checkBelowSideDiagonalCounter   = 0;
+                }
+
                 if (map[j][i] == dt)     { checkHorizontalCounter++; }
                 if (map[i][j] == dt)     { checkVerticalCounter++; }
 
