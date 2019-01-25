@@ -15,7 +15,7 @@ public class Lesson4 {
     final char DOT_O = 'o';
     final char DOT_EMPTY = '.';
     char[][] map;
-    int lastX, lastY;               // Для запоминания последнего хода
+    int winX, winY;               // Для нахождения потенциальн выйгрышного хода
     Random random;
     Scanner scanner;
 
@@ -32,10 +32,11 @@ public class Lesson4 {
         while (true) {
 
             humanTurn();
-            if (checkWinNew(DOT_X)) {
+            if (checkWinNew(DOT_X,SIZE_LINE_WIN)) {
                 System.out.println("YOU WON!");
                 break;
             }
+
 
             if (isMapFull()) {
                 System.out.println("Sorry, DRAW!");
@@ -44,7 +45,7 @@ public class Lesson4 {
 
             aiTurn();
             printMap();
-            if (checkWinNew(DOT_O)) {
+            if (checkWinNew(DOT_O,SIZE_LINE_WIN)) {
                 System.out.println("AI WON!");
                 break;
             }
@@ -83,25 +84,32 @@ public class Lesson4 {
             y = scanner.nextInt() - 1;
         } while (!isCellValid(x, y));
         map[y][x] = DOT_X;
-        lastX = x;
-        lastY = y;
     }
 
     void aiTurn() {
+
         int x, y;
-        do {
-            x = random.nextInt(SIZE);
-            y = random.nextInt(SIZE);
-        } while (!isCellValid(x, y));
-        map[y][x] = DOT_O;
-        lastX = x;
-        lastY = y;
-    }
+
+        // Проверка "искусственного интеллекта" на один ход до победы
+        // Попытаемся найти потенциально выйгрышный ход человека
+        if (checkWinNew(DOT_X,SIZE_LINE_WIN-1) && checkWinTurn(DOT_X) && isCellValid(winX, winY)) {
+            map[winY][winX] = DOT_O;
+        }
+        else {
+            do {
+                x = random.nextInt(SIZE);
+                y = random.nextInt(SIZE);
+            } while (!isCellValid(x, y));
+            map[y][x] = DOT_O;
+
+        }
+
+     }
 
     // 3. * Попробовать переписать логику проверки победы, чтобы она работала
     // для поля 5х5 и количества фишек 4. Очень желательно не делать это просто
     // набором условий для каждой из возможных ситуаций;
-    boolean checkWinNew(char dt) {
+    boolean checkWinNew(char dt, int sizeLineWin) {
         int checkHorizontalCounter, checkVerticalCounter;
         int checkMainDiagonalCounter, checkSideDiagonalCounter;
 
@@ -110,7 +118,7 @@ public class Lesson4 {
         for (int i = 0; i < SIZE; i++) {
             if (map[i][i] == dt)         { checkMainDiagonalCounter++; }
             if (map[SIZE-i-1][i] == dt)  { checkSideDiagonalCounter++; }
-            if (checkMainDiagonalCounter == SIZE_LINE_WIN || checkSideDiagonalCounter == SIZE_LINE_WIN) return true;
+            if (checkMainDiagonalCounter == sizeLineWin || checkSideDiagonalCounter == sizeLineWin) return true;
 
             checkHorizontalCounter = 0;
             checkVerticalCounter   = 0;
@@ -118,7 +126,7 @@ public class Lesson4 {
                 if (map[j][i] == dt)     { checkHorizontalCounter++; }
                 if (map[i][j] == dt)     { checkVerticalCounter++; }
 
-                if (checkHorizontalCounter == SIZE_LINE_WIN || checkVerticalCounter == SIZE_LINE_WIN)   return true;
+                if (checkHorizontalCounter == sizeLineWin || checkVerticalCounter == sizeLineWin)   return true;
             }
 
         }
@@ -169,5 +177,28 @@ public class Lesson4 {
         return map[y][x] == DOT_EMPTY;
     }
 
+
+    //4. *** Доработать искусственный интеллект, чтобы он мог блокировать ходы игрока.
+    boolean checkWinTurn(char dt) {
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (isCellValid(i, j)) {
+                    map[j][i]=dt;        // Временно отметим следующий ход и проверим выйграет ли он в этом случае
+                    if (checkWinNew(dt,SIZE_LINE_WIN)) {
+                        // Нашли потенциально выйгрышный ход
+                        winX = i;
+                        winY = j;
+                        map[j][i]=DOT_EMPTY;    // Обязательно отменяем временный ход
+                        return true;
+                    }
+                    map[j][i]=DOT_EMPTY;    // Обязательно отменяем временный ход
+                }
+            }
+        }
+
+
+        return false;
+    }
 
 }
