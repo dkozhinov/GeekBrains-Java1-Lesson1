@@ -32,7 +32,7 @@ public class Lesson4 {
         while (true) {
 
             humanTurn();
-            if (checkWinNew(DOT_X,SIZE_LINE_WIN)) {
+            if (checkWinNew(DOT_X)) {
                 System.out.println("YOU WON!");
                 break;
             }
@@ -45,7 +45,7 @@ public class Lesson4 {
 
             aiTurn();
             printMap();
-            if (checkWinNew(DOT_O,SIZE_LINE_WIN)) {
+            if (checkWinNew(DOT_O)) {
                 System.out.println("AI WON!");
                 break;
             }
@@ -109,7 +109,7 @@ public class Lesson4 {
     // 3. * Попробовать переписать логику проверки победы, чтобы она работала
     // для поля 5х5 и количества фишек 4. Очень желательно не делать это просто
     // набором условий для каждой из возможных ситуаций;
-    boolean checkWinNew(char dt, int sizeLineWin) {
+    boolean checkWinNew(char dt) {
         int checkHorizontalCounter, checkVerticalCounter;
         int checkMainDiagonalCounter, checkSideDiagonalCounter;
 
@@ -134,7 +134,7 @@ public class Lesson4 {
                     if (map[SIZE-j-1][j+i] == dt)           { checkSideDiagonalCounter++;   }
                     else if (checkSideDiagonalCounter >0)   { checkSideDiagonalCounter = 0; }
 
-                    if (checkMainDiagonalCounter == sizeLineWin || checkSideDiagonalCounter == sizeLineWin) return true;
+                    if (checkMainDiagonalCounter == SIZE_LINE_WIN || checkSideDiagonalCounter == SIZE_LINE_WIN) return true;
                 }
                 else {
                     checkMainDiagonalCounter   = 0;
@@ -149,7 +149,7 @@ public class Lesson4 {
                     if (map[SIZE-j-1][j-i] == dt)               { checkBelowSideDiagonalCounter++;   }
                     else if (checkBelowSideDiagonalCounter >0)  { checkBelowSideDiagonalCounter = 0; }
 
-                    if (checkBelowMainDiagonalCounter == sizeLineWin || checkBelowSideDiagonalCounter == sizeLineWin) return true;
+                    if (checkBelowMainDiagonalCounter == SIZE_LINE_WIN || checkBelowSideDiagonalCounter == SIZE_LINE_WIN) return true;
                 }
                 else {
                     checkBelowMainDiagonalCounter   = 0;
@@ -162,7 +162,7 @@ public class Lesson4 {
                 if (map[i][j] == dt)                { checkVerticalCounter++;     }
                 else if (checkVerticalCounter >0)   { checkVerticalCounter = 0;   }
 
-                if (checkHorizontalCounter == sizeLineWin || checkVerticalCounter == sizeLineWin)   return true;
+                if (checkHorizontalCounter == SIZE_LINE_WIN || checkVerticalCounter == SIZE_LINE_WIN)   return true;
             }
 
         }
@@ -221,7 +221,7 @@ public class Lesson4 {
             for (int j = 0; j < SIZE; j++) {
                 if (isCellValid(i, j)) {
                     map[j][i]=dt;        // Временно отметим следующий ход и проверим выйграет ли он в этом случае
-                    if (checkWinNew(dt,SIZE_LINE_WIN)) {
+                    if (checkWinNew(dt)) {
                         // Нашли потенциально выйгрышный ход
                         winX = i;
                         winY = j;
