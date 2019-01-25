@@ -9,11 +9,13 @@ import java.util.Scanner;
 
 public class Lesson4 {
 
-    final int SIZE = 3;
+    final int SIZE = 5;             // Размер Игрового поля SIZExSIZE
+    final int SIZE_LINE_WIN = 4;    // Размер выйгрышной линии
     final char DOT_X = 'x';
     final char DOT_O = 'o';
     final char DOT_EMPTY = '.';
     char[][] map;
+    int lastX, lastY;               // Для запоминания последнего хода
     Random random;
     Scanner scanner;
 
@@ -30,7 +32,7 @@ public class Lesson4 {
         while (true) {
 
             humanTurn();
-            if (checkWin(DOT_X)) {
+            if (checkWinNew(DOT_X)) {
                 System.out.println("YOU WON!");
                 break;
             }
@@ -42,7 +44,7 @@ public class Lesson4 {
 
             aiTurn();
             printMap();
-            if (checkWin(DOT_O)) {
+            if (checkWinNew(DOT_O)) {
                 System.out.println("AI WON!");
                 break;
             }
@@ -76,11 +78,13 @@ public class Lesson4 {
     void humanTurn() {
         int x, y;
         do {
-            System.out.println("Enter X and Y (1..3):");
+            System.out.println("Enter X and Y (1.." + SIZE + "):");
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
         } while (!isCellValid(x, y));
         map[y][x] = DOT_X;
+        lastX = x;
+        lastY = y;
     }
 
     void aiTurn() {
@@ -90,8 +94,41 @@ public class Lesson4 {
             y = random.nextInt(SIZE);
         } while (!isCellValid(x, y));
         map[y][x] = DOT_O;
+        lastX = x;
+        lastY = y;
     }
 
+    // 3. * Попробовать переписать логику проверки победы, чтобы она работала
+    // для поля 5х5 и количества фишек 4. Очень желательно не делать это просто
+    // набором условий для каждой из возможных ситуаций;
+    boolean checkWinNew(char dt) {
+        int checkHorizontalCounter, checkVerticalCounter;
+        int checkMainDiagonalCounter, checkSideDiagonalCounter;
+
+        checkMainDiagonalCounter   = 0;
+        checkSideDiagonalCounter   = 0;
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][i] == dt)         { checkMainDiagonalCounter++; }
+            if (map[SIZE-i-1][i] == dt)  { checkSideDiagonalCounter++; }
+            if (checkMainDiagonalCounter == SIZE_LINE_WIN || checkSideDiagonalCounter == SIZE_LINE_WIN) return true;
+
+            checkHorizontalCounter = 0;
+            checkVerticalCounter   = 0;
+            for (int j = 0; j < SIZE; j++) {
+                if (map[j][i] == dt)     { checkHorizontalCounter++; }
+                if (map[i][j] == dt)     { checkVerticalCounter++; }
+
+                if (checkHorizontalCounter == SIZE_LINE_WIN || checkVerticalCounter == SIZE_LINE_WIN)   return true;
+            }
+
+        }
+
+
+        return false;
+    }
+
+    // 2. Переделать проверку победы, чтобы она не была реализована
+    // просто набором условий, например, с использованием циклов.
     boolean checkWin(char dt) {
         boolean checkHorizontal;
         boolean checkVertical;
