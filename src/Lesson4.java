@@ -126,9 +126,14 @@ public class Lesson4 {
             checkBelowSideDiagonalCounter   = 0;
             for (int j = 0; j < SIZE; j++) {
 
+                // Проверка для диагоналей, которые выше или совпадают с основной и побочной диагоналями
                 if (j+i < SIZE) {
-                    if (map[j][j+i] == dt)         { checkMainDiagonalCounter++; }
-                    if (map[SIZE-j-1][j+i] == dt)  { checkSideDiagonalCounter++; }
+                    if (map[j][j+i] == dt)                  { checkMainDiagonalCounter++;   }
+                    else if (checkMainDiagonalCounter >0)   { checkMainDiagonalCounter = 0; }
+
+                    if (map[SIZE-j-1][j+i] == dt)           { checkSideDiagonalCounter++;   }
+                    else if (checkSideDiagonalCounter >0)   { checkSideDiagonalCounter = 0; }
+
                     if (checkMainDiagonalCounter == sizeLineWin || checkSideDiagonalCounter == sizeLineWin) return true;
                 }
                 else {
@@ -136,9 +141,14 @@ public class Lesson4 {
                     checkSideDiagonalCounter   = 0;
                 }
 
+                // Проверка для диагоналей, которые ниже основной и побочной диагоналей
                 if (j-i >=0) {
-                    if (map[j][j-i] == dt)         { checkBelowMainDiagonalCounter++; }
-                    if (map[SIZE-j-1][j-i] == dt)  { checkBelowSideDiagonalCounter++; }
+                    if (map[j][j-i] == dt)                      { checkBelowMainDiagonalCounter++;   }
+                    else if (checkBelowMainDiagonalCounter >0)  { checkBelowMainDiagonalCounter = 0; }
+
+                    if (map[SIZE-j-1][j-i] == dt)               { checkBelowSideDiagonalCounter++;   }
+                    else if (checkBelowSideDiagonalCounter >0)  { checkBelowSideDiagonalCounter = 0; }
+
                     if (checkBelowMainDiagonalCounter == sizeLineWin || checkBelowSideDiagonalCounter == sizeLineWin) return true;
                 }
                 else {
@@ -146,8 +156,11 @@ public class Lesson4 {
                     checkBelowSideDiagonalCounter   = 0;
                 }
 
-                if (map[j][i] == dt)     { checkHorizontalCounter++; }
-                if (map[i][j] == dt)     { checkVerticalCounter++; }
+                if (map[j][i] == dt)                { checkHorizontalCounter++;   }
+                else if (checkHorizontalCounter >0) { checkHorizontalCounter = 0; }
+
+                if (map[i][j] == dt)                { checkVerticalCounter++;     }
+                else if (checkVerticalCounter >0)   { checkVerticalCounter = 0;   }
 
                 if (checkHorizontalCounter == sizeLineWin || checkVerticalCounter == sizeLineWin)   return true;
             }
