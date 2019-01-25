@@ -92,7 +92,7 @@ public class Lesson4 {
 
         // Проверка "искусственного интеллекта" на один ход до победы
         // Попытаемся найти потенциально выйгрышный ход человека
-        if (checkWinNew(DOT_X,SIZE_LINE_WIN-1) && checkWinTurn(DOT_X) && isCellValid(winX, winY)) {
+        if (checkWinTurn(DOT_X) && isCellValid(winX, winY)) {
             map[winY][winX] = DOT_O;
         }
         else {
