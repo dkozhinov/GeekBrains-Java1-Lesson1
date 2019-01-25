@@ -93,17 +93,28 @@ public class Lesson4 {
     }
 
     boolean checkWin(char dt) {
-        // check horizontal
-        if (map[0][0] == dt && map[1][0] == dt && map[2][0] == dt) return true;
-        if (map[0][1] == dt && map[1][1] == dt && map[2][1] == dt) return true;
-        if (map[0][2] == dt && map[1][2] == dt && map[2][2] == dt) return true;
-        // check vertical
-        if (map[0][0] == dt && map[0][1] == dt && map[0][2] == dt) return true;
-        if (map[1][0] == dt && map[1][1] == dt && map[1][2] == dt) return true;
-        if (map[2][0] == dt && map[2][1] == dt && map[2][2] == dt) return true;
-        // check diagonal
-        if (map[0][0] == dt && map[1][1] == dt && map[2][2] == dt) return true;
-        if (map[2][0] == dt && map[1][1] == dt && map[0][2] == dt) return true;
+        boolean checkHorizontal;
+        boolean checkVertical;
+        boolean checkMainDiagonal, checkSideDiagonal;
+
+        checkMainDiagonal = true;
+        checkSideDiagonal = true;
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][i] != dt)         { checkMainDiagonal = false; }
+            if (map[SIZE-i-1][i] != dt)  { checkSideDiagonal = false; }
+
+            checkHorizontal = true;
+            checkVertical = true;
+            for (int j = 0; j < SIZE; j++) {
+                if (map[j][i] != dt)     { checkHorizontal   = false; }
+                if (map[i][j] != dt)     { checkVertical     = false; }
+            }
+            if (checkHorizontal || checkVertical)   return true;
+
+        }
+        if (checkMainDiagonal || checkSideDiagonal) return true;
+
+
         return false;
     }
 
