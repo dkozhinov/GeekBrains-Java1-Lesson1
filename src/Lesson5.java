@@ -28,13 +28,14 @@ public class Lesson5 {
         personArray[3] = new Person("Kozhinov Dmitry", "Engineer", "d.kozhinov@mail.ru", "1234567", 100000, 44);
         personArray[4] = new Person("Bill Green", "Ticher", "b.green@mail.ru", "1230066", 70000, 24);
 
-        personArray[4].setAge(41);
-
         for (int i=0; i<5; i++) {
             if (personArray[i].getAge() >40) {
                 System.out.println(personArray[i].getPerson());
             }
         }
+
+        personArray[4].setAge(41);
+        System.out.println(personArray[4]);
 
     }
 }
