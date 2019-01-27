@@ -15,7 +15,7 @@ public class Lesson4 {
     final char DOT_O = 'o';
     final char DOT_EMPTY = '.';
     char[][] map;
-    int winX, winY;               // Для нахождения потенциально выйгрышного хода
+    int winX, winY;                 // Для нахождения потенциально выйгрышного хода
     Random random;
     Scanner scanner;
 
@@ -110,10 +110,11 @@ public class Lesson4 {
     // для поля 5х5 и количества фишек 4. Очень желательно не делать это просто
     // набором условий для каждой из возможных ситуаций;
     boolean checkWinNew(char dt) {
+        // Перменные-счетчики для горизонтальных и вертикальных линий
         int checkHorizontalCounter, checkVerticalCounter;
+        // Перменные-счетчики для диагоналей, которые выше или совпадают с основной и побочной диагоналями
         int checkMainDiagonalCounter, checkSideDiagonalCounter;
-
-        // Для диагоналей, которые ниже основной и побочной диагоналей
+        // Перменные-счетчики для диагоналей, которые ниже основной и побочной диагоналей
         int checkBelowMainDiagonalCounter, checkBelowSideDiagonalCounter;
 
         for (int i = 0; i < SIZE; i++) {
@@ -156,6 +157,7 @@ public class Lesson4 {
                     checkBelowSideDiagonalCounter   = 0;
                 }
 
+                // Проверка для горизонтальных и вертикальных линий
                 if (map[j][i] == dt)                { checkHorizontalCounter++;   }
                 else if (checkHorizontalCounter >0) { checkHorizontalCounter = 0; }
 
