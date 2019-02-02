@@ -11,7 +11,8 @@
 public class Lesson6 {
 
     public static void main(String[] args) {
-        Cat cat1 = new Cat("Кот", "Нора", 200, 2, 0);
+        Cat cat = new Cat("Кот", "Нора", 200, 2, 0);
+        Dog dog = new Dog("Собака", "Майл", 500, 0.5,10);
     }
 
 }
@@ -25,10 +26,10 @@ public class Lesson6 {
 class Animal {
     protected String type;                                      // Вид животного (кот, собака, жираф...)
     protected String name;                                      // Имя животного
-    protected int sizeRunLimit, sizeJumpLimit, sizeSwimLimit;   // Органичения в подвижности животного
+    protected double sizeRunLimit, sizeJumpLimit, sizeSwimLimit;   // Органичения в подвижности животного
 
     // конструктор
-    Animal(String type, String name, int sizeRunLimit, int sizeJumpLimit, int sizeSwimLimit) {
+    Animal(String type, String name, double sizeRunLimit, double sizeJumpLimit, double sizeSwimLimit) {
         this.type = type;
         this.name = name;
         if (sizeRunLimit >= 0) {
@@ -42,21 +43,21 @@ class Animal {
         }
     }
 
-    public boolean run(int value) {
+    public boolean run(double value) {
         if (value >= 0 && value < sizeRunLimit) {
             return true;
         }
         return false;
     }
 
-    public boolean jump(int value) {
+    public boolean jump(double value) {
         if (value >= 0 && value < sizeJumpLimit) {
             return true;
         }
         return false;
     }
 
-    public boolean swim(int value) {
+    public boolean swim(double value) {
         if (value >= 0 && value < sizeSwimLimit) {
             return true;
         }
@@ -75,7 +76,7 @@ class Animal {
 
 class Cat extends Animal {
 
-    Cat(String type, String name, int sizeRunLimit, int sizeJumpLimit, int sizeSwimLimit) {
+    Cat(String type, String name, double sizeRunLimit, double sizeJumpLimit, double sizeSwimLimit) {
         super(type, name, sizeRunLimit, sizeJumpLimit, sizeSwimLimit);
     }
 
@@ -89,7 +90,7 @@ class Cat extends Animal {
 
 class Dog extends Animal {
 
-    Dog(String type, String name, int sizeRunLimit, int sizeJumpLimit, int sizeSwimLimit) {
+    Dog(String type, String name, double sizeRunLimit, double sizeJumpLimit, double sizeSwimLimit) {
         super(type, name, sizeRunLimit, sizeJumpLimit, sizeSwimLimit);
     }
 
