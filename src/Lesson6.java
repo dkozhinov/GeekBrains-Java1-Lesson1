@@ -26,6 +26,8 @@ public class Lesson6 {
         i=150;
         animal = cat;
         System.out.println(animal.getType() + " " + animal.getName() + ": Результат бег на " + i + "м. - " + (animal.run(i)? "true" : "false") );
+        i=1;
+        System.out.println(animal.getType() + " " + animal.getName() + ": Результат прыжка на " + i + "м. - " + (animal.jump(i)? "true" : "false") );
 
         i=500;
         animal = dog;
@@ -74,24 +76,15 @@ class Animal {
     }
 
     public boolean run(double value) {
-        if (value > 0 && value <= sizeRunLimit) {
-            return true;
-        }
-        return false;
+        return (value > 0 && value <= sizeRunLimit);
     }
 
     public boolean jump(double value) {
-        if (value > 0 && value <= sizeJumpLimit) {
-            return true;
-        }
-        return false;
+        return (value > 0 && value <= sizeJumpLimit);
     }
 
     public boolean swim(double value) {
-        if (value > 0 && value <= sizeSwimLimit) {
-            return true;
-        }
-        return false;
+        return (value > 0 && value <= sizeSwimLimit);
     }
 
     public String getType(){
@@ -110,10 +103,16 @@ class Animal {
 }
 
 
+
 class Cat extends Animal {
 
     Cat(String type, String name, double sizeRunLimit, double sizeJumpLimit, double sizeSwimLimit) {
         super(type, name, sizeRunLimit, sizeJumpLimit, sizeSwimLimit);
+    }
+
+    @Override
+    public boolean swim(double value) {
+        return false;           // Кот не умеет плавать!
     }
 
     @Override
