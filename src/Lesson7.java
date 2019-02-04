@@ -98,7 +98,7 @@ class Plate {
         this.food = food;
     }
 
-    // Метод, описывающий как едет из тарелки
+    // Метод, описывающий как едят из тарелки
     // Возвращает true если удалось поесть
     boolean dicreaseFood(int food) {
         if (this.food >= food) {
