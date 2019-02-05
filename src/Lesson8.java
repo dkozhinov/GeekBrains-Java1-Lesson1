@@ -30,39 +30,41 @@ public class Lesson8  extends JFrame {
         //}
 
 
+        setLayout(new BorderLayout()); // выбор компоновщика элементов
         JPanel pan = new JPanel();
-        add(pan);
         pan.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("MousePos: " + e.getX() + " " + e.getY());
             }
         });
+        add(pan, BorderLayout.NORTH);
+
 
         JTextField field = new JTextField();
-        add(field);
         field.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Your message: " + field.getText());
             }
         });
+        add(field, BorderLayout.SOUTH);
 
+
+        JPanel panMain = new JPanel();
+        panMain.setLayout(new GridLayout(4,3));
         JButton[] jbs = new JButton[10];
-        setLayout(new GridLayout(4, 3));
-
         for (int i = 0; i < jbs.length; i++) {
             jbs[i] = new JButton("#" + i);
-            add(jbs[i]);
+            panMain.add(jbs[i]);
             jbs[i].addActionListener( new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("Button pressed...");
                 }
             });
-
-
         }
+        add(panMain, BorderLayout.CENTER);
 
         setVisible(true);
     }
